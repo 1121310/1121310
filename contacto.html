@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cotiza - EasyPrint3D</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    UPLOADCARE_PUBLIC_KEY = 'd88828ad233b5ab3b5ea';
+  </script>
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo-titulo">
+      <a href="index.html">
+        <img src="logoeasyprint.png" alt="Logo" class="logo" />
+      </a>
+      <a href="index.html" class="titulo-link">
+        <h1>EasyPrint 3D</h1>
+      </a>
+    </div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Log in / Sign in</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Cotiza</h2>
+    <form action="https://formsubmit.co/customerservice12025@hotmail.com" method="POST">
+      <label for="name">Nombre</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Correo</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Mensaje</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <label for="archivo">Sube tu archivo</label>
+      <input type="hidden" role="uploadcare-uploader" name="archivo" data-clearable />
+
+      <div class="separador"></div>
+
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="gracias.html">
+
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    © 2025 EasyPrint3D S.A.S.
+  </footer>
+
+</body>
+</html>
