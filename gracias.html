@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gracias por tu Solicitud - EasyPrint3D</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+      /* Estilos generales (los mismos de las otras páginas) */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: #1d1d1f;
+        line-height: 1.6;
+        background-color: #f5f5f7;
+      }
+      #animated-bg {
+        width: 100vw; height: 100vh; position: fixed;
+        top: 0; left: 0; z-index: -1;
+      }
+      .main-container {
+        position: relative; z-index: 1; min-height: 100vh;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      
+      /* Estilos para la tarjeta de agradecimiento */
+      .gracias-section {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
+        margin: 2rem auto;
+        padding: 4rem;
+        max-width: 650px;
+        width: 90%;
+        text-align: center;
+      }
+      .gracias-section .icon {
+        font-size: 4rem;
+        color: #34c759; /* Verde de éxito */
+        line-height: 1;
+      }
+      .gracias-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 1rem 0;
+        color: #1d1d1f;
+      }
+      .gracias-section p {
+        font-size: 1.1rem;
+        color: #6e6e73;
+        max-width: 450px;
+        margin: 0 auto 1.5rem auto;
+      }
+      .gracias-section .horario {
+        background-color: #f5f5f7;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        margin-bottom: 2.5rem;
+        display: inline-block;
+      }
+      .boton-volver {
+        background: #0071e3;
+        color: #fff;
+        padding: 1rem 2.5rem;
+        font-weight: 500;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 5px 20px rgba(0, 113, 227, 0.3);
+      }
+      .boton-volver:hover {
+        background: #0077ed;
+        transform: scale(1.05);
+      }
+    </style>
+</head>
+<body>
+
+  <div id="animated-bg"></div>
+
+  <div class="main-container">
+    <main>
+      <section class="gracias-section" data-aos="fade-up">
+        <div class="icon">✔</div>
+        <h2>¡Solicitud Enviada!</h2>
+        <p>Hemos recibido tu cotización correctamente. Gracias por confiar en EasyPrint3D.</p>
+        <div class="horario">
+          <p>Nuestro equipo la revisará y te contactaremos a la brevedad en nuestro horario de atención: <br><strong>Lunes a Sábado de 9:00 AM a 6:00 PM</strong>.</p>
+        </div>
+        <a href="index.html" class="boton-volver">Volver al Inicio</a>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Inicializar Vanta.js
+    VANTA.DOTS({
+      el: "#animated-bg",
+      mouseControls: false, // Desactivamos controles del mouse para esta página
+      touchControls: false,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x999999,
+      backgroundColor: 0xf5f5f7,
+      size: 3.50,
+      spacing: 30.00,
+      showLines: false
+    });
+
+    // Inicializar AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+  </script>
+
+</body>
+</html>

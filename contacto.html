@@ -1,59 +1,254 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cotiza - EasyPrint3D</title>
-  <link rel="stylesheet" href="style.css" />
-  <script>
-    UPLOADCARE_PUBLIC_KEY = 'd88828ad233b5ab3b5ea';
-  </script>
-  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto y Cotización - EasyPrint3D</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+      UPLOADCARE_PUBLIC_KEY = 'd88828ad233b5ab3b5ea';
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+
+    <style>
+      /* === RESET BÁSICO Y ESTILOS GLOBALES === */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: #1d1d1f;
+        line-height: 1.6;
+        background-color: #f5f5f7;
+      }
+
+      /* === FONDO ANIMADO === */
+      #animated-bg {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      /* === CONTENEDOR PRINCIPAL === */
+      .main-container {
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* === NAVBAR FLOTANTE === */
+      .navbar {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 16px;
+        max-width: 1200px;
+        width: calc(100% - 32px);
+        margin: 0 auto;
+        z-index: 100;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+      .logo-titulo { display: flex; align-items: center; gap: 1rem; }
+      .logo { height: 48px; }
+      .titulo-link { text-decoration: none; color: #1d1d1f; font-weight: 700; user-select: none; }
+      nav a {
+        margin-left: 1rem; text-decoration: none; font-weight: 500;
+        color: #333; padding: 10px 20px; border-radius: 16px;
+        transition: all 0.3s ease;
+      }
+      nav a:hover { background-color: #e9ecef; color: #0071e3; }
+
+      /* === ESTILO DE LA SECCIÓN DE COTIZACIÓN === */
+      .cotiza-section {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
+        margin: 2.5rem auto;
+        padding: 3rem;
+        max-width: 700px;
+        width: 90%;
+        flex-grow: 1; /* Hace que la sección ocupe el espacio disponible */
+      }
+      .cotiza-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+        color: #1d1d1f;
+      }
+
+      /* === ESTILOS PARA EL FORMULARIO === */
+      .cotiza-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .cotiza-form label {
+        font-weight: 500;
+        color: #3a3a3c;
+        margin-bottom: -0.8rem; /* Reduce el espacio entre label y campo */
+      }
+      .cotiza-form input[type="text"],
+      .cotiza-form input[type="email"],
+      .cotiza-form textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #dcdce1;
+        border-radius: 12px;
+        background-color: #fdfdff;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .cotiza-form input[type="text"]:focus,
+      .cotiza-form input[type="email"]:focus,
+      .cotiza-form textarea:focus {
+        outline: none;
+        border-color: #0071e3;
+        box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+      }
+      .cotiza-form textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      /* Estilos para el botón de Uploadcare */
+      .uploadcare--widget__button-base {
+        background-color: #e9ecef !important;
+        color: #333 !important;
+        border-radius: 12px !important;
+        padding: 10px 16px !important;
+        font-weight: 500 !important;
+        transition: background-color 0.3s ease !important;
+      }
+      .uploadcare--widget__button-base:hover {
+        background-color: #dee2e6 !important;
+      }
+
+      /* Estilo para el botón de Enviar */
+      .cotiza-form button[type="submit"] {
+        background: #0071e3;
+        color: #fff;
+        padding: 1rem;
+        font-weight: 500;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 113, 227, 0.2);
+        margin-top: 1rem;
+      }
+      .cotiza-form button[type="submit"]:hover {
+        background: #0077ed;
+        transform: translateY(-3px);
+      }
+
+      /* === FOOTER === */
+      .footer {
+        text-align: center;
+        padding: 2.5rem;
+        color: #6e6e73;
+        width: 100%;
+      }
+    </style>
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="logo-titulo">
-      <a href="index.html">
-        <img src="logoeasyprint.png" alt="Logo" class="logo" />
-      </a>
-      <a href="index.html" class="titulo-link">
-        <h1>EasyPrint 3D</h1>
-      </a>
-    </div>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="productos.html">Log in / Sign in</a>
-    </nav>
-  </header>
+  <div id="animated-bg"></div>
 
-  <section class="hero">
-    <h2>Cotiza</h2>
-    <form action="https://formsubmit.co/customerservice12025@hotmail.com" method="POST">
-      <label for="name">Nombre</label>
-      <input type="text" id="name" name="name" required />
+  <div class="main-container">
+    <header class="navbar">
+      <div class="logo-titulo">
+        <a href="index.html">
+          <img src="logoeasyprint.png" alt="Logo" class="logo" />
+        </a>
+        <a href="index.html" class="titulo-link">
+          <h1>EasyPrint 3D</h1>
+        </a>
+      </div>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="404.html">Log in / Sign in</a>
+      </nav>
+    </header>
 
-      <label for="email">Correo</label>
-      <input type="email" id="email" name="email" required />
+    <main>
+      <section class="cotiza-section" data-aos="fade-up">
+        <h2>Cotiza tu Pieza</h2>
+        
+        <form class="cotiza-form" action="https://formsubmit.co/customerservice12025@hotmail.com" method="POST">
+          <label for="name">Nombre Completo</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre y apellido" required />
 
-      <label for="message">Mensaje</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="email">Correo Electrónico</label>
+          <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required />
 
-      <label for="archivo">Sube tu archivo</label>
-      <input type="hidden" role="uploadcare-uploader" name="archivo" data-clearable />
+          <label for="message">Descripción del Proyecto</label>
+          <textarea id="message" name="message" rows="5" placeholder="Danos detalles como el material, color, tamaño y cualquier otra especificación importante." required></textarea>
 
-      <div class="separador"></div>
+          <label for="archivo">Sube tu archivo (.stl, .obj, .3mf)</label>
+          <input type="hidden" role="uploadcare-uploader" name="archivo" data-clearable />
 
-      <input type="hidden" name="_captcha" value="true">
-      <input type="hidden" name="_next" value="gracias.html">
+          <input type="hidden" name="_captcha" value="true">
+          
+          <input type="hidden" name="_next" value="http://127.0.0.1:5500/gracias.html">
 
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
+          <button type="submit">Enviar Solicitud</button>
+        </form>
+      </section>
+    </main>
 
-  <footer class="footer">
-    © 2025 EasyPrint3D S.A.S.
-  </footer>
+    <footer class="footer">
+      © 2025 All rights reserved EasyPrint3D S.A.S.
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Inicializar Vanta.js
+    VANTA.DOTS({
+      el: "#animated-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x999999,
+      backgroundColor: 0xf5f5f7,
+      size: 3.50,
+      spacing: 30.00,
+      showLines: false
+    });
+
+    // Inicializar AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+  </script>
 
 </body>
 </html>

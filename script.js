@@ -12,3 +12,4 @@ function doPost(e){
   return ContentService.createTextOutput("OK");
 }
 
+"color": { "value": "#007BFF" } // Puedes probar "#ff69b4", "#00ffcc", "#ffffff", etc.
