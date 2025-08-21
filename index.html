@@ -112,24 +112,24 @@
             position: fixed;
             top: 20px;
             left: 50%;
-            transform: translateX(-50%) perspective(1000px) rotateX(5deg); /* Efecto 3D */
+            transform: translateX(-50%) perspective(1000px) rotateX(5deg);
             width: 95%;
             max-width: 1250px;
             z-index: 100;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.25); /* Un poco más de opacidad */
+            background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(10px) saturate(180%);
             -webkit-backdrop-filter: blur(10px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-right-color: rgba(255, 255, 255, 0.1);
             border-bottom-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.3); /* Sombras para el efecto 3D */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.3);
             transition: all 0.5s ease-in-out;
             will-change: transform;
         }
 
         .navbar:hover {
-            transform: translateX(-50%) perspective(1000px) rotateX(0deg); /* Se endereza en hover */
+            transform: translateX(-50%) perspective(1000px) rotateX(0deg);
         }
 
         .logo-titulo {
@@ -256,7 +256,7 @@
             width: 26px;
             height: 26px;
             color: var(--secondary-teal);
-            opacity: 0.9;
+            opacity: 1;
         }
 
         .hero-btn {
@@ -330,43 +330,17 @@
             align-items: center;
         }
 
-        .instagram-post-frame {
-            flex: 1 1 350px;
-            max-width: 380px;
-            min-width: 320px;
-            height: 700px;
-            background-color: #1c1c1e;
-            border: 12px solid #1c1c1e;
-            border-radius: 45px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .phone-notch {
-            position: absolute;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 28px;
-            background-color: #1c1c1e;
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 18px;
-            z-index: 10;
-        }
-
-        .instagram-screen {
-            width: calc(100% - 10px);
-            height: calc(100% - 10px);
-            border-radius: 35px;
+        .instagram-media-container {
+            flex: 1 1 400px;
+            max-width: 450px;
+            border-radius: 20px;
             overflow: hidden;
-            background-color: #000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .instagram-screen .instagram-media {
-            border-radius: 35px !important;
+        .instagram-media {
+            border-radius: 20px !important;
         }
 
         .instagram-qr-card {
@@ -556,7 +530,7 @@
                 gap: 3rem;
             }
 
-            .instagram-post-frame, .instagram-qr-card, .mapa-embed, .mapa-texto {
+            .instagram-media-container, .instagram-qr-card, .mapa-embed, .mapa-texto {
                 width: 90%;
                 max-width: none;
                 flex-basis: auto;
@@ -652,14 +626,11 @@
                     Síguenos en Instagram
                 </h3>
                 <div class="instagram-container">
-                    <div class="instagram-post-frame" data-aos="fade-right">
-                        <div class="phone-notch"></div>
-                        <div class="instagram-screen">
-                            <blockquote class="instagram-media"
-                                data-instgrm-permalink="https://www.instagram.com/reel/DKBSUxcujOa/?igsh=MXYxeWJ3d2xxdXJqbA=="
-                                data-instgrm-version="14" style="margin:0; border-radius: 20px;">
-                            </blockquote>
-                        </div>
+                    <div class="instagram-media-container" data-aos="fade-right">
+                        <blockquote class="instagram-media"
+                            data-instgrm-permalink="https://www.instagram.com/reel/DKBSUxcujOa/?igsh=MXYxeWJ3d2xxdXJqbA=="
+                            data-instgrm-version="14" style="background: #fff; border: 1px solid #ddd; border-radius: 3px; box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width: 448px; min-width: 326px; padding: 0; width: 99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                        </blockquote>
                     </div>
                     <div class="instagram-qr-card liquid-glass" data-aos="fade-left" data-aos-delay="150">
                         <h4>Escanea y Síguenos</h4>
