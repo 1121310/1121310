@@ -37,24 +37,30 @@
     }
     
     /* === NAVBAR FLOTANTE ESTILO CRISTAL === */
-    .navbar {
-      background: rgba(255, 255, 255, 0.7); /* Fondo de cristal */
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 0.8rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 16px; 
-      max-width: 1200px;
-      width: calc(100% - 32px);
-      margin: 0 auto;
-      z-index: 100;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
+   .navbar {
+  /* Estilo 'Liquid Glass' de Apple */
+  background: rgba(255, 255, 255, 0.2); /* Fondo con muy poca opacidad */
+  backdrop-filter: blur(50px) saturate(200%); /* Desenfoque más intenso y saturación */
+  -webkit-backdrop-filter: blur(50px) saturate(200%);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 16px; 
+  max-width: 1200px;
+  width: calc(100% - 32px);
+  margin: 0 auto;
+  z-index: 100;
+  border-radius: 20px;
+  /* Borde con degradado para simular un borde de luz */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Sombras internas para crear un efecto de profundidad tridimensional */
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.5), 
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
     .logo-titulo { display: flex; align-items: center; gap: 1rem; }
     .logo { height: 48px; }
     .titulo-link { text-decoration: none; color: #1d1d1f; font-weight: 700; user-select: none; }
