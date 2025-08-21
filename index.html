@@ -286,6 +286,71 @@
             text-align: center; padding: 2rem;
             color: #6e6e73;
         }
+
+        /* === AJUSTES PARA DISPOSITIVOS MÓVILES (PANTALLAS < 768px) === */
+@media (max-width: 768px) {
+    /* Navbar: Cambia a un diseño de menú hamburguesa */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        top: 8px;
+        width: calc(100% - 16px);
+        border-radius: 16px;
+    }
+
+    .navbar nav {
+        display: none; /* Oculta el menú por defecto */
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .navbar nav a {
+        margin: 0.5rem 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Opcional: Agrega un botón de menú hamburguesa con JavaScript */
+    .navbar .logo-titulo {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+
+    .navbar.active nav {
+        display: flex;
+    }
+
+    /* Secciones: Ajustes de espaciado para móviles */
+    .content-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+
+    .benefits {
+        flex-direction: column;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .instagram-container, .mapa-container {
+        flex-direction: column;
+    }
+} 
     </style>
 </head>
 <body>
@@ -302,20 +367,21 @@
 
     <div class="main-container">
 
-        <header class="navbar">
-            <div class="logo-titulo">
-                <a href="index.html">
-                    <img src="logoeasyprint.png" alt="Logo" class="logo" />
-                </a>
-                <a href="index.html" class="titulo-link">
-                    <h1>EasyPrint 3D</h1>
-                </a>
-            </div>
-            <nav>
-                <a href="contacto.html">Cotiza</a>
-                <a href="404.html">Inicia sesión</a>
-            </nav>
-        </header>
+        <header class="navbar" id="navbar">
+    <div class="logo-titulo">
+        <a href="index.html">
+            <img src="logoeasyprint.png" alt="Logo" class="logo" />
+        </a>
+        <a href="index.html" class="titulo-link">
+            <h1>EasyPrint 3D</h1>
+        </a>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </div>
+    <nav>
+        <a href="contacto.html">Cotiza</a>
+        <a href="404.html">Inicia sesión</a>
+    </nav>
+</header>
 
         <main>
             <section class="hero">
@@ -426,6 +492,11 @@
             offset: 100
         });
     </script>
-
+<script>
+    function toggleMenu() {
+        const navbar = document.getElementById('navbar');
+        navbar.classList.toggle('active');
+    }
+</script>
 </body>
 </html>
