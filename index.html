@@ -12,7 +12,7 @@
         /* === RESET BÁSICO Y ESTILOS GLOBALES === */
         :root {
             --primary-blue: #0071e3;
-            --secondary-teal: #20c997; /* Nuevo color secundario */
+            --secondary-teal: #20c997;
             --light-bg: #f0f2f5;
             --dark-text: #1d1d1f;
         }
@@ -33,7 +33,7 @@
             line-height: 1.6;
             background: linear-gradient(45deg, #e6f7ff, var(--light-bg));
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite; /* Animación del gradiente */
+            animation: gradient 15s ease infinite;
             padding-top: 100px;
         }
 
@@ -88,7 +88,7 @@
                 rgba(255, 255, 255, 0) 100%
             );
             transform: translateX(-100%) skewX(-25deg);
-            animation: shine 4s ease-in-out infinite; /* Animación más lenta (4s) */
+            animation: shine 4s ease-in-out infinite;
         }
 
         @keyframes shine {
@@ -103,7 +103,7 @@
             }
         }
 
-        /* === NAVBAR FIJO === */
+        /* === NAVBAR FIJO CON EFECTO 3D Y MÁS COLOR === */
         .navbar {
             padding: 1.2rem 2rem;
             display: flex;
@@ -112,11 +112,24 @@
             position: fixed;
             top: 20px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) perspective(1000px) rotateX(5deg); /* Efecto 3D */
             width: 95%;
             max-width: 1250px;
             z-index: 100;
             border-radius: 20px;
+            background: rgba(255, 255, 255, 0.25); /* Un poco más de opacidad */
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-right-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.3); /* Sombras para el efecto 3D */
+            transition: all 0.5s ease-in-out;
+            will-change: transform;
+        }
+
+        .navbar:hover {
+            transform: translateX(-50%) perspective(1000px) rotateX(0deg); /* Se endereza en hover */
         }
 
         .logo-titulo {
@@ -146,7 +159,7 @@
         }
 
         nav a:hover {
-            background-color: var(--secondary-teal); /* Cambio de color en hover */
+            background-color: var(--secondary-teal);
             color: #fff;
             transform: translateY(-2px);
         }
@@ -242,7 +255,7 @@
         .benefits svg {
             width: 26px;
             height: 26px;
-            color: var(--secondary-teal); /* Cambio de color del icono */
+            color: var(--secondary-teal);
             opacity: 0.9;
         }
 
@@ -260,9 +273,9 @@
         }
 
         .hero-btn:hover {
-            background: var(--secondary-teal); /* Cambio de color en hover */
+            background: var(--secondary-teal);
             transform: scale(1.06);
-            box-shadow: 0 8px 25px rgba(32, 201, 151, 0.4); /* Sombra con el nuevo color */
+            box-shadow: 0 8px 25px rgba(32, 201, 151, 0.4);
         }
 
         /* === HEADERS DE SECCIÓN CON ICONOS === */
@@ -572,7 +585,7 @@
 </head>
 <body>
     <div class="main-container">
-        <header class="navbar liquid-glass" id="navbar">
+        <header class="navbar" id="navbar">
             <div class="logo-titulo">
                 <a href="index.html">
                     <img src="logoeasyprint.png" alt="Logo" class="logo" />
