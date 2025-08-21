@@ -16,7 +16,7 @@
             font-family: 'Inter', sans-serif;
             color: #1d1d1f;
             line-height: 1.6;
-            background-color: #f5f5f7; /* Color de fondo base */
+            background-color: #f5f5f7;
         }
 
         /* === FONDO: CÍRCULOS FLUIDOS RESALTADOS === */
@@ -28,18 +28,17 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            background: linear-gradient(135deg, #e6e6e9, #d4d4d8); /* Degradado sutilmente más oscuro */
+            background: linear-gradient(135deg, #e6e6e9, #d4d4d8);
         }
 
         .circle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6); /* Blanco más opaco para resaltar */
+            background: rgba(255, 255, 255, 0.6);
             animation: move-circles 15s linear infinite;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Ligera sombra para dar volumen */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
-        /* Define el tamaño y la posición de cada círculo */
         .circle:nth-child(1) { width: 160px; height: 160px; bottom: -160px; left: 20%; animation-delay: 0s; opacity: 0.75;}
         .circle:nth-child(2) { width: 220px; height: 220px; bottom: -220px; left: 5%; animation-delay: 2s; opacity: 0.6;}
         .circle:nth-child(3) { width: 110px; height: 110px; bottom: -110px; left: 85%; animation-delay: 4s; opacity: 0.7;}
@@ -48,7 +47,6 @@
         .circle:nth-child(6) { width: 240px; height: 240px; bottom: -240px; left: 25%; animation-delay: 10s; opacity: 0.6;}
         .circle:nth-child(7) { width: 100px; height: 100px; bottom: -100px; left: 70%; animation-delay: 12s; opacity: 0.75;}
 
-        /* Animación que hace que los círculos suban y se desvanezcan */
         @keyframes move-circles {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
@@ -57,15 +55,14 @@
         /* === CONTENEDOR PRINCIPAL === */
         .main-container {
             position: relative;
-            z-index: 1; /* Asegura que el contenido esté sobre el fondo */
+            z-index: 1;
             background-color: transparent;
         }
 
         /* === NAVBAR FLOTANTE ESTILO VIDRIO REAL MEJORADO === */
         .navbar {
-            /* Estilo 'Vidrio Real' Mejorado */
-            background: rgba(255, 255, 255, 0.08); /* Aún más transparencia */
-            backdrop-filter: blur(70px) saturate(190%); /* Desenfoque más intenso y saturación ligeramente mayor */
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(70px) saturate(190%);
             -webkit-backdrop-filter: blur(70px) saturate(190%);
             padding: 0.8rem 1.5rem;
             display: flex;
@@ -78,15 +75,11 @@
             margin: 0 auto;
             z-index: 100;
             border-radius: 20px;
-            /* Borde sutil con reflejo simulado */
             border: 1px solid rgba(255, 255, 255, 0.35);
-            /* Sombras para profundidad y realismo, incluyendo reflejo de borde */
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.55), /* Brillo superior más fuerte */
-                inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-                /* Simulación de reflejo de borde */
-                0 0 10px 1px rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+                        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+                        0 0 10px 1px rgba(255, 255, 255, 0.15);
         }
         .logo-titulo { display: flex; align-items: center; gap: 1rem; }
         .logo { height: 48px; }
@@ -105,7 +98,7 @@
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
             margin: 2.5rem auto; padding: 3.5rem; max-width: 1100px;
             width: 90%;
-            background-color: #fff; /* Fondo blanco para las secciones */
+            background-color: #fff;
         }
 
         /* === HERO SECTION === */
@@ -165,24 +158,22 @@
         .video-item video:hover { transform: scale(1.03); }
 
         /* INSTAGRAM & MAPA */
-        /* Contenedor principal de la sección de Instagram */
         .instagram-container {
             display: flex;
             flex-wrap: wrap;
             gap: 3rem;
-            justify-content: space-evenly; /* Distribuye el espacio equitativamente */
+            justify-content: space-evenly;
             align-items: center;
         }
 
-        /* --- ESTILOS PARA LA MAQUETA DEL TELÉFONO --- */
         .instagram-post-frame {
             flex: 1 1 320px;
             max-width: 340px;
             min-width: 300px;
             height: 650px;
-            background-color: #1c1c1e; /* Negro de iPhone */
+            background-color: #1c1c1e;
             border: 10px solid #1c1c1e;
-            border-radius: 40px; /* Bordes redondeados del teléfono */
+            border-radius: 40px;
             box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.3);
             position: relative;
             display: flex;
@@ -206,16 +197,15 @@
         .instagram-screen {
             width: 100%;
             height: 100%;
-            border-radius: 30px; /* Pantalla interna redondeada */
-            overflow: hidden; /* Muy importante para recortar el video */
+            border-radius: 30px;
+            overflow: hidden;
             background-color: #000;
         }
 
         .instagram-screen .instagram-media {
-            border-radius: 30px !important; /* Asegura que el video de IG tome los bordes */
+            border-radius: 30px !important;
         }
 
-        /* --- ESTILOS PARA LA TARJETA DEL QR --- */
         .instagram-qr-card {
             flex: 1 1 320px;
             max-width: 400px;
@@ -251,7 +241,7 @@
         }
 
         .qr-img {
-            width: 180px; /* QR más grande */
+            width: 180px;
             border-radius: 18px;
             margin: 1rem 0;
         }
@@ -288,69 +278,67 @@
         }
 
         /* === AJUSTES PARA DISPOSITIVOS MÓVILES (PANTALLAS < 768px) === */
-@media (max-width: 768px) {
-    /* Navbar: Cambia a un diseño de menú hamburguesa */
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-        top: 8px;
-        width: calc(100% - 16px);
-        border-radius: 16px;
-    }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+                top: 8px;
+                width: calc(100% - 16px);
+                border-radius: 16px;
+            }
 
-    .navbar nav {
-        display: none; /* Oculta el menú por defecto */
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-    }
+            .navbar nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
 
-    .navbar nav a {
-        margin: 0.5rem 0;
-        text-align: center;
-        width: 100%;
-    }
+            .navbar nav a {
+                margin: 0.5rem 0;
+                text-align: center;
+                width: 100%;
+            }
 
-    /* Opcional: Agrega un botón de menú hamburguesa con JavaScript */
-    .navbar .logo-titulo {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+            .navbar .logo-titulo {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        font-size: 1.5rem;
-    }
+            .menu-toggle {
+                display: block !important; /* Importante para que se muestre en móviles */
+                cursor: pointer;
+                font-size: 1.5rem;
+                user-select: none;
+            }
 
-    .navbar.active nav {
-        display: flex;
-    }
+            .navbar.active nav {
+                display: flex;
+            }
 
-    /* Secciones: Ajustes de espaciado para móviles */
-    .content-section {
-        padding: 2rem 1.5rem;
-    }
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
 
-    .hero h2 {
-        font-size: 2.5rem;
-    }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
 
-    .benefits {
-        flex-direction: column;
-    }
+            .benefits {
+                flex-direction: column;
+            }
 
-    .video-grid {
-        grid-template-columns: 1fr;
-    }
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
 
-    .instagram-container, .mapa-container {
-        flex-direction: column;
-    }
-} 
+            .instagram-container, .mapa-container {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -368,20 +356,20 @@
     <div class="main-container">
 
         <header class="navbar" id="navbar">
-    <div class="logo-titulo">
-        <a href="index.html">
-            <img src="logoeasyprint.png" alt="Logo" class="logo" />
-        </a>
-        <a href="index.html" class="titulo-link">
-            <h1>EasyPrint 3D</h1>
-        </a>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    </div>
-    <nav>
-        <a href="contacto.html">Cotiza</a>
-        <a href="404.html">Inicia sesión</a>
-    </nav>
-</header>
+            <div class="logo-titulo">
+                <a href="index.html">
+                    <img src="logoeasyprint.png" alt="Logo" class="logo" />
+                </a>
+                <a href="index.html" class="titulo-link">
+                    <h1>EasyPrint 3D</h1>
+                </a>
+                <div class="menu-toggle">☰</div>
+            </div>
+            <nav>
+                <a href="contacto.html">Cotiza</a>
+                <a href="404.html">Inicia sesión</a>
+            </nav>
+        </header>
 
         <main>
             <section class="hero">
@@ -435,7 +423,6 @@
                     Síguenos en Instagram
                 </h3>
                 <div class="instagram-container">
-
                     <div class="instagram-post-frame" data-aos="fade-right">
                         <div class="phone-notch"></div>
                         <div class="instagram-screen">
@@ -445,14 +432,12 @@
                             </blockquote>
                         </div>
                     </div>
-
                     <div class="instagram-qr-card" data-aos="fade-left" data-aos-delay="150">
                         <h4>Escanea y Síguenos</h4>
                         <p>Descubre proyectos únicos y el detrás de cámaras de nuestras impresiones.</p>
                         <img src="qr_instagram.png" alt="QR para seguir en Instagram" class="qr-img">
                         <a href="https://www.instagram.com/IMPRIMEEASY_3D" target="_blank" class="instagram-username">@IMPRIMEEASY_3D</a>
                     </div>
-
                 </div>
             </section>
 
@@ -491,12 +476,11 @@
             once: true,
             offset: 100
         });
+
+        // Script para el menú hamburguesa
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('navbar').classList.toggle('active');
+        });
     </script>
-<script>
-    function toggleMenu() {
-        const navbar = document.getElementById('navbar');
-        navbar.classList.toggle('active');
-    }
-</script>
 </body>
 </html>
