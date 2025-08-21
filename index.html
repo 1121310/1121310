@@ -1,413 +1,428 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EasyPrint3D - Impresión 3D de Alta Calidad</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    /* === RESET BÁSICO Y ESTILOS GLOBALES === */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #1d1d1f;
-      line-height: 1.6;
-      background-color: #f5f5f7; /* Color de fondo base */
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyPrint3D - Impresión 3D de Alta Calidad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* === RESET BÁSICO Y ESTILOS GLOBALES === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1d1d1f;
+            line-height: 1.6;
+            background-color: #f5f5f7; /* Color de fondo base */
+        }
 
-    /* === FONDO ANIMADO DE PUNTOS === */
-    #animated-bg {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1; /* Detrás de todo el contenido */
-    }
+        /* === NUEVO FONDO: CÍRCULOS FLUIDOS === */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f0f2, #e0e0e5); /* Degradado suave */
+        }
 
-    /* === CONTENEDOR PRINCIPAL === */
-    .main-container {
-      position: relative;
-      z-index: 1; /* Asegura que el contenido esté sobre el fondo */
-      background-color: transparent;
-    }
-    
-    /* === NAVBAR FLOTANTE ESTILO CRISTAL === */
-   .navbar {
-  /* Estilo 'Liquid Glass' de Apple */
-  background: rgba(255, 255, 255, 0.2); /* Fondo con muy poca opacidad */
-  backdrop-filter: blur(50px) saturate(200%); /* Desenfoque más intenso y saturación */
-  -webkit-backdrop-filter: blur(50px) saturate(200%);
-  padding: 0.8rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 16px; 
-  max-width: 1200px;
-  width: calc(100% - 32px);
-  margin: 0 auto;
-  z-index: 100;
-  border-radius: 20px;
-  /* Borde con degradado para simular un borde de luz */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  /* Sombras internas para crear un efecto de profundidad tridimensional */
-  box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.1), 
-    inset 0 1px 0 rgba(255, 255, 255, 0.5), 
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-    .logo-titulo { display: flex; align-items: center; gap: 1rem; }
-    .logo { height: 48px; }
-    .titulo-link { text-decoration: none; color: #1d1d1f; font-weight: 700; user-select: none; }
-    .titulo-link h1::selection { background: transparent; }
-    nav a {
-      margin-left: 1rem; text-decoration: none; font-weight: 500;
-      color: #333; padding: 10px 20px; border-radius: 16px;
-      transition: all 0.3s ease;
-    }
-    nav a:hover { background-color: #e9ecef; color: #0071e3; }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4); /* Blanco semi-transparente */
+            animation: move-circles 15s linear infinite;
+        }
 
-    /* === ESTILO GENERAL DE SECCIONES (TARJETAS) === */
-    .content-section {
-      border-radius: 24px;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
-      margin: 2.5rem auto; padding: 3.5rem; max-width: 1100px;
-      width: 90%;
-    }
-    
-    /* === HERO SECTION === */
-    .hero {
-      text-align: center;
-      color: #1d1d1f;
-      min-height: calc(100vh - 98px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .hero-content { padding: 3rem; }
-    .hero h2 {
-        font-size: 3.5rem; font-weight: 700; margin-bottom: 1.5rem;
-        max-width: 800px;
-    }
-    .benefits {
-      list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 1.5rem; font-size: 1.1rem; margin-bottom: 3rem; color: #4f4f4f;
-    }
-    .benefits li { 
-        display: flex; align-items: center; gap: 0.5rem; font-weight: 500;
-    }
-    .benefits svg { width: 24px; height: 24px; color: #0071e3; }
-    .hero-btn {
-      background: #0071e3; color: #fff; padding: 1rem 2.5rem;
-      font-weight: 500; font-size: 1.1rem; border: none; border-radius: 30px; cursor: pointer;
-      transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0, 113, 227, 0.3);
-    }
-    .hero-btn:hover { background: #0077ed; transform: scale(1.05); }
-    
-    /* === HEADERS DE SECCIÓN CON ICONOS === */
-    .content-section h3 {
-        display: flex; align-items: center; justify-content: center;
-        gap: 0.8rem;
-        font-size: 2.2rem; margin-bottom: 3rem; color: #1d1d1f;
-    }
-    .content-section h3 svg { width: 32px; height: 32px; opacity: 0.8; }
-    
-    /* === SECCIONES CON PALETA GRIS PREMIUM === */
-    .videos { background-color: #ffffff; } 
-    .instagram-section { background-color: #f8f9fa; }
-    .mapa-contacto { background-color: #f1f3f5; }
-    .footer { background-color: #ffffff; }
+        /* Define el tamaño y la posición de cada círculo */
+        .circle:nth-child(1) { width: 150px; height: 150px; bottom: -150px; left: 25%; animation-delay: 0s; opacity: 0.7;}
+        .circle:nth-child(2) { width: 200px; height: 200px; bottom: -200px; left: 10%; animation-delay: 2s; opacity: 0.5;}
+        .circle:nth-child(3) { width: 100px; height: 100px; bottom: -100px; left: 80%; animation-delay: 4s; opacity: 0.6;}
+        .circle:nth-child(4) { width: 180px; height: 180px; bottom: -180px; left: 50%; animation-delay: 6s; opacity: 0.4;}
+        .circle:nth-child(5) { width: 120px; height: 120px; bottom: -120px; left: 90%; animation-delay: 8s; opacity: 0.7;}
+        .circle:nth-child(6) { width: 220px; height: 220px; bottom: -220px; left: 30%; animation-delay: 10s; opacity: 0.5;}
+        .circle:nth-child(7) { width: 90px; height: 90px; bottom: -90px; left: 65%; animation-delay: 12s; opacity: 0.6;}
 
-    /* VIDEOS */
-    .videos { scroll-margin-top: 120px; }
-    .video-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .video-item video {
-      width: 100%; border-radius: 18px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease;
-    }
-    .video-item video:hover { transform: scale(1.03); }
+        /* Animación que hace que los círculos suban y se desvanezcan */
+        @keyframes move-circles {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+        }
 
-    /* INSTAGRAM & MAPA */
-    /* Contenedor principal de la sección de Instagram */
-    .instagram-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3rem;
-      justify-content: space-evenly; /* Distribuye el espacio equitativamente */
-      align-items: center;
-    }
+        /* === CONTENEDOR PRINCIPAL === */
+        .main-container {
+            position: relative;
+            z-index: 1; /* Asegura que el contenido esté sobre el fondo */
+            background-color: transparent;
+        }
 
-    /* --- ESTILOS PARA LA MAQUETA DEL TELÉFONO --- */
-    .instagram-post-frame {
-      flex: 1 1 320px;
-      max-width: 340px;
-      min-width: 300px;
-      height: 650px;
-      background-color: #1c1c1e; /* Negro de iPhone */
-      border: 10px solid #1c1c1e;
-      border-radius: 40px; /* Bordes redondeados del teléfono */
-      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.3);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        /* === NAVBAR FLOTANTE ESTILO VIDRIO REAL === */
+        .navbar {
+            /* Estilo 'Vidrio Real' */
+            background: rgba(255, 255, 255, 0.1); /* Fondo casi transparente */
+            backdrop-filter: blur(60px) saturate(180%); /* Desenfoque fuerte y saturación */
+            -webkit-backdrop-filter: blur(60px) saturate(180%);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 16px; 
+            max-width: 1200px;
+            width: calc(100% - 32px);
+            margin: 0 auto;
+            z-index: 100;
+            border-radius: 20px;
+            /* Borde sutil con un toque de brillo */
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            /* Sombras para profundidad y realismo */
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+        .logo-titulo { display: flex; align-items: center; gap: 1rem; }
+        .logo { height: 48px; }
+        .titulo-link { text-decoration: none; color: #1d1d1f; font-weight: 700; user-select: none; }
+        .titulo-link h1::selection { background: transparent; }
+        nav a {
+            margin-left: 1rem; text-decoration: none; font-weight: 500;
+            color: #333; padding: 10px 20px; border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover { background-color: #e9ecef; color: #0071e3; }
 
-    .phone-notch {
-      position: absolute;
-      top: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 25px;
-      background-color: #1c1c1e;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      z-index: 10;
-    }
+        /* === ESTILO GENERAL DE SECCIONES (TARJETAS) === */
+        .content-section {
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
+            margin: 2.5rem auto; padding: 3.5rem; max-width: 1100px;
+            width: 90%;
+            background-color: #fff; /* Fondo blanco para las secciones */
+        }
+        
+        /* === HERO SECTION === */
+        .hero {
+            text-align: center;
+            color: #1d1d1f;
+            min-height: calc(100vh - 98px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .hero-content { padding: 3rem; }
+        .hero h2 {
+            font-size: 3.5rem; font-weight: 700; margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+        .benefits {
+            list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 1.5rem; font-size: 1.1rem; margin-bottom: 3rem; color: #4f4f4f;
+        }
+        .benefits li { 
+            display: flex; align-items: center; gap: 0.5rem; font-weight: 500;
+        }
+        .benefits svg { width: 24px; height: 24px; color: #0071e3; }
+        .hero-btn {
+            background: #0071e3; color: #fff; padding: 1rem 2.5rem;
+            font-weight: 500; font-size: 1.1rem; border: none; border-radius: 30px; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0, 113, 227, 0.3);
+        }
+        .hero-btn:hover { background: #0077ed; transform: scale(1.05); }
+        
+        /* === HEADERS DE SECCIÓN CON ICONOS === */
+        .content-section h3 {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.8rem;
+            font-size: 2.2rem; margin-bottom: 3rem; color: #1d1d1f;
+        }
+        .content-section h3 svg { width: 32px; height: 32px; opacity: 0.8; }
+        
+        /* === SECCIONES CON PALETA GRIS PREMIUM === */
+        .videos { background-color: #ffffff; } 
+        .instagram-section { background-color: #f8f9fa; }
+        .mapa-contacto { background-color: #f1f3f5; }
+        .footer { background-color: #ffffff; }
 
-    .instagram-screen {
-      width: 100%;
-      height: 100%;
-      border-radius: 30px; /* Pantalla interna redondeada */
-      overflow: hidden; /* Muy importante para recortar el video */
-      background-color: #000;
-    }
-    
-    .instagram-screen .instagram-media {
-        border-radius: 30px !important; /* Asegura que el video de IG tome los bordes */
-    }
+        /* VIDEOS */
+        .videos { scroll-margin-top: 120px; }
+        .video-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .video-item video {
+            width: 100%; border-radius: 18px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .video-item video:hover { transform: scale(1.03); }
 
-    /* --- ESTILOS PARA LA TARJETA DEL QR --- */
-    .instagram-qr-card {
-      flex: 1 1 320px;
-      max-width: 400px;
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 2.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        /* INSTAGRAM & MAPA */
+        /* Contenedor principal de la sección de Instagram */
+        .instagram-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: space-evenly; /* Distribuye el espacio equitativamente */
+            align-items: center;
+        }
 
-    .instagram-qr-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-    }
+        /* --- ESTILOS PARA LA MAQUETA DEL TELÉFONO --- */
+        .instagram-post-frame {
+            flex: 1 1 320px;
+            max-width: 340px;
+            min-width: 300px;
+            height: 650px;
+            background-color: #1c1c1e; /* Negro de iPhone */
+            border: 10px solid #1c1c1e;
+            border-radius: 40px; /* Bordes redondeados del teléfono */
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .instagram-qr-card h4 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #1d1d1f;
-      margin-bottom: 0.5rem;
-    }
+        .phone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background-color: #1c1c1e;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
 
-    .instagram-qr-card p {
-      color: #6e6e73;
-      max-width: 300px;
-      line-height: 1.5;
-    }
+        .instagram-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 30px; /* Pantalla interna redondeada */
+            overflow: hidden; /* Muy importante para recortar el video */
+            background-color: #000;
+        }
+        
+        .instagram-screen .instagram-media {
+            border-radius: 30px !important; /* Asegura que el video de IG tome los bordes */
+        }
 
-    .qr-img {
-      width: 180px; /* QR más grande */
-      border-radius: 18px;
-      margin: 1rem 0;
-    }
+        /* --- ESTILOS PARA LA TARJETA DEL QR --- */
+        .instagram-qr-card {
+            flex: 1 1 320px;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .instagram-username {
-        text-decoration: none;
-        color: #0071e3;
-        font-weight: 500;
-        background-color: #f0f7ff;
-        padding: 8px 16px;
-        border-radius: 12px;
-        transition: background-color 0.3s ease;
-    }
+        .instagram-qr-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+        }
 
-    .instagram-username:hover {
-        background-color: #e0ecf8;
-    }
-    
-    /* MAPA */
-    .mapa-container {
-      display: flex; flex-wrap: wrap; gap: 3rem;
-      justify-content: center; align-items: center;
-    }
-    .mapa-embed { flex: 1 1 320px; max-width: 400px; }
-    .mapa-texto { flex: 1 1 300px; text-align: center; }
-    .mapa-embed iframe { width: 100%; height: 350px; border: none; border-radius: 18px; }
-    .mapa-texto p { font-size: 1.1rem; }
-    .disclaimer { text-align: center; font-size: 0.8rem; margin-top: 2rem; color: #6e6e73; }
+        .instagram-qr-card h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 0.5rem;
+        }
 
-    /* === FOOTER === */
-    .footer {
-      text-align: center; padding: 2rem;
-      color: #6e6e73;
-    }
-  </style>
+        .instagram-qr-card p {
+            color: #6e6e73;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .qr-img {
+            width: 180px; /* QR más grande */
+            border-radius: 18px;
+            margin: 1rem 0;
+        }
+
+        .instagram-username {
+            text-decoration: none;
+            color: #0071e3;
+            font-weight: 500;
+            background-color: #f0f7ff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .instagram-username:hover {
+            background-color: #e0ecf8;
+        }
+        
+        /* MAPA */
+        .mapa-container {
+            display: flex; flex-wrap: wrap; gap: 3rem;
+            justify-content: center; align-items: center;
+        }
+        .mapa-embed { flex: 1 1 320px; max-width: 400px; }
+        .mapa-texto { flex: 1 1 300px; text-align: center; }
+        .mapa-embed iframe { width: 100%; height: 350px; border: none; border-radius: 18px; }
+        .mapa-texto p { font-size: 1.1rem; }
+        .disclaimer { text-align: center; font-size: 0.8rem; margin-top: 2rem; color: #6e6e73; }
+
+        /* === FOOTER === */
+        .footer {
+            text-align: center; padding: 2rem;
+            color: #6e6e73;
+        }
+    </style>
 </head>
 <body>
 
-  <div id="animated-bg"></div>
+    <div class="animated-background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
 
-  <div class="main-container">
+    <div class="main-container">
 
-    <header class="navbar">
-      <div class="logo-titulo">
-        <a href="index.html">
-          <img src="logoeasyprint.png" alt="Logo" class="logo" />
-        </a>
-        <a href="index.html" class="titulo-link">
-          <h1>EasyPrint 3D</h1>
-        </a>
-      </div>
-      <nav>
-        <a href="contacto.html">Cotiza</a>
-        <a href="404.html">Inicia sesión</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <h2>El mejor servicio de impresión 3D</h2>
-          <ul class="benefits">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              Entrega rápida
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-              Precios competitivos
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-              Asesoría personalizada
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12c0-5.25-4.25-9.5-9.5-9.5S2.5 6.75 2.5 12s4.25 9.5 9.5 9.5c.23 0 .46.01.68-.02" /><path d="m18.7 12.4-2.2 2.2a1.5 1.5 0 0 1-2.1 0l-2.1-2.1a1.5 1.5 0 0 1 0-2.1l2.2-2.2a1.5 1.5 0 0 1 2.1 0l2.1 2.1a1.5 1.5 0 0 1 0 2.1z" /></svg>
-              Si quieres, te lo Diseñamos
-            </li>
-          </ul>
-          <button class="hero-btn" onclick="document.getElementById('videos').scrollIntoView()">
-            Ver más
-          </button>
-        </div>
-      </section>
-
-      <section class="content-section videos" id="videos" data-aos="fade-up">
-        <h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
-            Un poco de nosotros
-        </h3>
-        <div class="video-grid">
-          <div class="video-item">
-            <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
-          </div>
-          <div class="video-item">
-            <video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video>
-          </div>
-          <div class="video-item">
-              <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
-          </div>
-        </div>
-      </section>
-
-      <section class="content-section instagram-section" data-aos="fade-up" data-aos-delay="100">
-        <h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            Síguenos en Instagram
-        </h3>
-        <div class="instagram-container">
-
-          <div class="instagram-post-frame" data-aos="fade-right">
-            <div class="phone-notch"></div>
-            <div class="instagram-screen">
-              <blockquote class="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DKBSUxcujOa/?igsh=MXYxeWJ3d2xxdXJqbA=="
-                data-instgrm-version="14" style="margin:0; border-radius: 20px;">
-              </blockquote>
+        <header class="navbar">
+            <div class="logo-titulo">
+                <a href="index.html">
+                    <img src="logoeasyprint.png" alt="Logo" class="logo" />
+                </a>
+                <a href="index.html" class="titulo-link">
+                    <h1>EasyPrint 3D</h1>
+                </a>
             </div>
-          </div>
+            <nav>
+                <a href="contacto.html">Cotiza</a>
+                <a href="404.html">Inicia sesión</a>
+            </nav>
+        </header>
 
-          <div class="instagram-qr-card" data-aos="fade-left" data-aos-delay="150">
-            <h4>Escanea y Síguenos</h4>
-            <p>Descubre proyectos únicos y el detrás de cámaras de nuestras impresiones.</p>
-            <img src="qr_instagram.png" alt="QR para seguir en Instagram" class="qr-img">
-            <a href="https://www.instagram.com/IMPRIMEEASY_3D" target="_blank" class="instagram-username">@IMPRIMEEASY_3D</a>
-          </div>
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>El mejor servicio de impresión 3D</h2>
+                    <ul class="benefits">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Entrega rápida
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Precios competitivos
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                            Asesoría personalizada
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12c0-5.25-4.25-9.5-9.5-9.5S2.5 6.75 2.5 12s4.25 9.5 9.5 9.5c.23 0 .46.01.68-.02" /><path d="m18.7 12.4-2.2 2.2a1.5 1.5 0 0 1-2.1 0l-2.1-2.1a1.5 1.5 0 0 1 0-2.1l2.2-2.2a1.5 1.5 0 0 1 2.1 0l2.1 2.1a1.5 1.5 0 0 1 0 2.1z" /></svg>
+                            Si quieres, te lo Diseñamos
+                        </li>
+                    </ul>
+                    <button class="hero-btn" onclick="document.getElementById('videos').scrollIntoView()">
+                        Ver más
+                    </button>
+                </div>
+            </section>
 
-        </div>
-      </section>
-      
-      <script async src="//www.instagram.com/embed.js"></script>
+            <section class="content-section videos" id="videos" data-aos="fade-up">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    Un poco de nosotros
+                </h3>
+                <div class="video-grid">
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
+                    </div>
+                </div>
+            </section>
 
-      <section class="content-section mapa-contacto" data-aos="fade-up" data-aos-delay="100">
-        <h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            Nuestra Zona de Cobertura
-        </h3>
-        <div class="mapa-container">
-          <div class="mapa-embed">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.953333398493!2d-74.0658006852378!3d4.60269989665511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a1a8108a79%3A0xde11b71212850965!2sUniversidad%20de%20los%20Andes!5e0!3m2!1ses!2sco!4v1672880000000"
-              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-          <div class="mapa-texto">
-            <h4>Entregas rápidas en Bogotá</h4>
-            <p>Especialmente en la zona de Los Andes / Candelaria. ¡Envíanos tus diseños y con gusto te atenderemos!</p>
-          </div>
-        </div>
-        <p class="disclaimer">*Disclaimer: No estamos afiliados ni representamos a la Universidad de los Andes.</p>
-      </section>
+            <section class="content-section instagram-section" data-aos="fade-up" data-aos-delay="100">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    Síguenos en Instagram
+                </h3>
+                <div class="instagram-container">
 
-      <footer class="footer" data-aos="fade-up">
-        © 2025 All rights reserved EasyPrint3D S.A.S.
-      </footer>
-    </main>
+                    <div class="instagram-post-frame" data-aos="fade-right">
+                        <div class="phone-notch"></div>
+                        <div class="instagram-screen">
+                            <blockquote class="instagram-media"
+                                data-instgrm-permalink="https://www.instagram.com/reel/DKBSUxcujOa/?igsh=MXYxeWJ3d2xxdXJqbA=="
+                                data-instgrm-version="14" style="margin:0; border-radius: 20px;">
+                            </blockquote>
+                        </div>
+                    </div>
 
-  </div> <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    // Inicializar Vanta.js con el efecto DOTS y control del mouse
-    VANTA.DOTS({
-      el: "#animated-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x999999,
-      backgroundColor: 0xf5f5f7,
-      size: 3.50,
-      spacing: 30.00,
-      showLines: false
-    });
+                    <div class="instagram-qr-card" data-aos="fade-left" data-aos-delay="150">
+                        <h4>Escanea y Síguenos</h4>
+                        <p>Descubre proyectos únicos y el detrás de cámaras de nuestras impresiones.</p>
+                        <img src="qr_instagram.png" alt="QR para seguir en Instagram" class="qr-img">
+                        <a href="https://www.instagram.com/IMPRIMEEASY_3D" target="_blank" class="instagram-username">@IMPRIMEEASY_3D</a>
+                    </div>
 
-    // Inicializar AOS
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
-  </script>
+                </div>
+            </section>
+
+            <script async src="//www.instagram.com/embed.js"></script>
+
+            <section class="content-section mapa-contacto" data-aos="fade-up" data-aos-delay="100">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Nuestra Zona de Cobertura
+                </h3>
+                <div class="mapa-container">
+                    <div class="mapa-embed">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.953333398493!2d-74.0658006852378!3d4.60269989665511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a1a8108a79%3A0xde11b71212850965!2sUniversidad%20de%20los%20Andes!5e0!3m2!1ses!2sco!4v1672880000000"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="mapa-texto">
+                        <h4>Entregas rápidas en Bogotá</h4>
+                        <p>Especialmente en la zona de Los Andes / Candelaria. ¡Envíanos tus diseños y con gusto te atenderemos!</p>
+                    </div>
+                </div>
+                <p class="disclaimer">*Disclaimer: No estamos afiliados ni representamos a la Universidad de los Andes.</p>
+            </section>
+
+            <footer class="footer" data-aos="fade-up">
+                © 2025 All rights reserved EasyPrint3D S.A.S.
+            </footer>
+        </main>
+
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
 
 </body>
 </html>
