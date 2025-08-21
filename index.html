@@ -12,8 +12,7 @@
         /* === RESET BÁSICO Y ESTILOS GLOBALES === */
         :root {
             --primary-blue: #0071e3;
-            --secondary-blue: #54a9f9;
-            --accent-green: #34c759;
+            --secondary-teal: #20c997; /* Nuevo color secundario */
             --light-bg: #f0f2f5;
             --dark-text: #1d1d1f;
         }
@@ -32,19 +31,22 @@
             font-family: 'Inter', sans-serif;
             color: var(--dark-text);
             line-height: 1.6;
-            background-color: var(--light-bg);
+            background: linear-gradient(45deg, #e6f7ff, var(--light-bg));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite; /* Animación del gradiente */
             padding-top: 100px;
         }
 
-        /* === FONDO MINIMALISTA CON GRADIENTE RADIAL === */
-        .minimal-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at 50% 10%, #dcdfe5 0%, #e8edf2 50%, #f0f2f5 100%);
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* === CONTENEDOR PRINCIPAL === */
@@ -86,13 +88,19 @@
                 rgba(255, 255, 255, 0) 100%
             );
             transform: translateX(-100%) skewX(-25deg);
-            animation: shine 2s ease-in-out infinite;
+            animation: shine 4s ease-in-out infinite; /* Animación más lenta (4s) */
         }
 
         @keyframes shine {
-            0% { transform: translateX(-100%) skewX(-25deg); }
-            50% { transform: translateX(150%) skewX(-25deg); }
-            100% { transform: translateX(-100%) skewX(-25deg); }
+            0% {
+                transform: translateX(-100%) skewX(-25deg);
+            }
+            50% {
+                transform: translateX(150%) skewX(-25deg);
+            }
+            100% {
+                transform: translateX(-100%) skewX(-25deg);
+            }
         }
 
         /* === NAVBAR FIJO === */
@@ -138,8 +146,9 @@
         }
 
         nav a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            color: var(--primary-blue);
+            background-color: var(--secondary-teal); /* Cambio de color en hover */
+            color: #fff;
+            transform: translateY(-2px);
         }
 
         .menu-toggle {
@@ -206,7 +215,7 @@
             font-weight: 700;
             margin-bottom: 2rem;
             max-width: 900px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-teal));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -233,7 +242,7 @@
         .benefits svg {
             width: 26px;
             height: 26px;
-            color: var(--primary-blue);
+            color: var(--secondary-teal); /* Cambio de color del icono */
             opacity: 0.9;
         }
 
@@ -251,9 +260,9 @@
         }
 
         .hero-btn:hover {
-            background: var(--secondary-blue);
+            background: var(--secondary-teal); /* Cambio de color en hover */
             transform: scale(1.06);
-            box-shadow: 0 8px 25px rgba(84, 169, 249, 0.4);
+            box-shadow: 0 8px 25px rgba(32, 201, 151, 0.4); /* Sombra con el nuevo color */
         }
 
         /* === HEADERS DE SECCIÓN CON ICONOS === */
@@ -562,7 +571,6 @@
     </style>
 </head>
 <body>
-    <div class="minimal-background"></div>
     <div class="main-container">
         <header class="navbar liquid-glass" id="navbar">
             <div class="logo-titulo">
@@ -582,8 +590,8 @@
         <main>
             <section class="hero">
                 <div class="hero-content">
-                    <h2>El mejor servicio de impresión 3D</h2>
-                    <ul class="benefits">
+                    <h2 data-aos="fade-up">El mejor servicio de impresión 3D</h2>
+                    <ul class="benefits" data-aos="fade-up" data-aos-delay="200">
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                             Entrega rápida
@@ -601,7 +609,7 @@
                             Si quieres, te lo Diseñamos
                         </li>
                     </ul>
-                    <button class="hero-btn" onclick="document.getElementById('videos').scrollIntoView()">
+                    <button class="hero-btn" onclick="document.getElementById('videos').scrollIntoView()" data-aos="fade-up" data-aos-delay="400">
                         Ver más
                     </button>
                 </div>
@@ -613,19 +621,19 @@
                 </h3>
                 <div class="content-card">
                     <div class="video-grid">
-                        <div class="video-item">
+                        <div class="video-item" data-aos="zoom-in-up">
                             <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
                         </div>
-                        <div class="video-item">
+                        <div class="video-item" data-aos="zoom-in-up" data-aos-delay="100">
                             <video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video>
                         </div>
-                        <div class="video-item">
+                        <div class="video-item" data-aos="zoom-in-up" data-aos-delay="200">
                             <video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="content-section instagram-section" data-aos="fade-up" data-aos-delay="100">
+            <section class="content-section instagram-section" data-aos="fade-up">
                 <h3>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     Síguenos en Instagram
@@ -649,18 +657,18 @@
                 </div>
             </section>
             <script async src="//www.instagram.com/embed.js"></script>
-            <section class="content-section mapa-contacto" data-aos="fade-up" data-aos-delay="100">
+            <section class="content-section mapa-contacto" data-aos="fade-up">
                 <h3>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     Nuestra Zona de Cobertura
                 </h3>
                 <div class="mapa-container">
-                    <div class="mapa-embed liquid-glass">
+                    <div class="mapa-embed liquid-glass" data-aos="fade-right">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.953333398493!2d-74.0658006852378!3d4.60269989665511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a1a8108a79%3A0xde11b71212850965!2sUniversidad%20de%20los%20Andes!5e0!3m2!1ses!2sco!4v1672880000000"
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
-                    <div class="mapa-texto">
+                    <div class="mapa-texto" data-aos="fade-left" data-aos-delay="150">
                         <h4>Entregas rápidas en Bogotá</h4>
                         <p>Especialmente en la zona de Los Andes / Candelaria. ¡Envíanos tus diseños y con gusto te atenderemos!</p>
                     </div>
